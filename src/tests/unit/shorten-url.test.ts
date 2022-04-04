@@ -1,24 +1,13 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { lambdaHandler } from '../../app';
+import { lambdaHandler } from '../../handlers/shorten-url';
 
-describe('Unit test for app handler', function () {
-    const OLD_ENV = process.env;
-
-    beforeEach(() => {
-        jest.resetModules(); // Most important - it clears the cache
-        process.env = { ...OLD_ENV }; // Make a copy
-    });
-
-    afterAll(() => {
-        process.env = OLD_ENV; // Restore old environment
-    });
-
+describe('Unit test for shorten-url handler', function () {
     it('verifies successful response', async () => {
-        process.env.URL_TABLE = 'urlTable';
+        // Arrange
         const event: APIGatewayProxyEvent = {
             httpMethod: 'POST',
             body: JSON.stringify({
-                long_url: 'http://google.com/123/user',
+                longUrl: 'https://google.com/123/user',
             }),
             headers: {},
             isBase64Encoded: false,
@@ -66,13 +55,13 @@ describe('Unit test for app handler', function () {
             resource: '',
             stageVariables: {},
         };
+
+        // Act
         const result: APIGatewayProxyResult = await lambdaHandler(event);
 
+        // Assert
         expect(result.statusCode).toEqual(200);
-        expect(result.body).toEqual(
-            JSON.stringify({
-                message: 'hello world',
-            }),
-        );
+        const expected = expect.stringContaining('{"data":"https://tier.app');
+        expect(result.body).toEqual(expected);
     });
 });

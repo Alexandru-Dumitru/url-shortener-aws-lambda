@@ -28,7 +28,7 @@ export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGat
         return {
             statusCode: 400,
             body: JSON.stringify({
-                message: 'Invalid URL passed as "long_url"',
+                message: 'Invalid URL passed as "longUrl"',
             }),
         };
     }
