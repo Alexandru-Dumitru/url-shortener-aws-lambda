@@ -1,0 +1,16 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "url-shortener-serverless-typescript"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1si2c6dkecivo"
+s3_prefix = "url-shortener-serverless-typescript"
+region = "eu-central-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = false
+image_repositories = []
+[default.build.parameters]
+beta_features = true
+[default.sync.parameters]
+beta_features = true
